@@ -90,13 +90,55 @@
         <h1>Bootstrap starter template</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
 
-
-
         <div id="myDiv"><h2>Let AJAX change this text</h2></div>
         <button type="button" onclick="loadXMLDoc()">Change Content</button>
 
+        <hr />
 
-    
+        <span id="ajaxButton" style="cursor: pointer; text-decoration: underline">
+          Make a request
+        </span>
+        <script type="text/javascript">
+        (function() {
+          var httpRequest;
+          document.getElementById("ajaxButton").onclick = function() { makeRequest('ajax_info.txt'); };
+
+          function makeRequest(url) {
+            if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+              httpRequest = new XMLHttpRequest();
+            } else if (window.ActiveXObject) { // IE
+              try {
+                httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+              } 
+              catch (e) {
+                try {
+                  httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                } 
+                catch (e) {}
+              }
+            }
+
+            if (!httpRequest) {
+              alert('Giving up :( Cannot create an XMLHTTP instance');
+              return false;
+            }
+            httpRequest.onreadystatechange = alertContents;
+            httpRequest.open('GET', url);
+            httpRequest.send();
+          }
+
+          function alertContents() {
+            if (httpRequest.readyState === 4) {
+              if (httpRequest.status === 200) {
+                alert(httpRequest.responseText);
+              } else {
+                alert('There was a problem with the request.');
+              }
+            }
+          }
+        })();
+        </script>
+
       </div>
 
     </div><!-- /.container -->
