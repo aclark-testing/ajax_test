@@ -78,6 +78,11 @@
           Make a request
         </span>
 
+        <hr />
+
+        <!-- https://api.jquery.com/load/ -->
+        <div id="result"></div>
+
       </div>
 
     </div><!-- /.container -->
@@ -154,6 +159,13 @@
         }
       }
     })();
+    </script>
+
+    <!-- https://api.jquery.com/load/ -->
+    <script>
+        $(document).ready( function () {
+            $("#result").load("ajax_info.txt");
+        });
     </script>
 
   </body>
